@@ -8,7 +8,6 @@
   border: 1px solid black;
   margin: 0 7.5px 15px;
   overflow: hidden;
-
   &:hover {
     cursor: pointer;
 
@@ -52,6 +51,7 @@
     background-color: white;
     opacity: 0.7;
     position: absolute;
+    // align-self: center;
 
     .title {
       font-weight: bold;

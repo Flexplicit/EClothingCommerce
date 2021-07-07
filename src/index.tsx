@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+import './index.css'
 
 ReactDOM.render(
   <Router basename={process.env.PUBLIC_URL}>
