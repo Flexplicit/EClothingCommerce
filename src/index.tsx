@@ -1,18 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
-// import 'bootstrap';
-// import 'jquery';
-// import 'popper.js';
-// import 'font-awesome/css/font-awesome.min.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Router basename={process.env.PUBLIC_URL}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Router>,
   document.getElementById('root'),
 )
 

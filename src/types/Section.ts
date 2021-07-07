@@ -3,4 +3,5 @@ export default interface Section {
   imageUrl: string;
   id: number;
   size?: string;
+  linkUrl: string
 }

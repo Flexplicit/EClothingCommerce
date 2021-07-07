@@ -1,12 +1,19 @@
-import "./App.css";
-import HomePage from "./views/homepage/HomePage";
+import { Route, Switch } from 'react-router-dom'
+import './App.css'
+import HomePage from './views/homepage/HomePage'
 
 function App() {
   return (
     <div>
-      <HomePage />
+      <main>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+
+          {/* <Route component={Page404} /> */}
+        </Switch>
+      </main>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
