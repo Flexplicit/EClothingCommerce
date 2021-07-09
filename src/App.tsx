@@ -11,15 +11,18 @@ import { useEffect, useState } from 'react'
 import firebase from 'firebase'
 
 function App() {
-  const [userState, setUserState] = useState({
-    currentUser: {} as Object | null,
-  })
+  const [userState, setUserState] = useState({ currentUser: {} as Object | null })
+  let unSubscribeFromAuth: { (): void; (): void } | null = null
 
   useEffect(() => {
-    authentication.onAuthStateChanged((user) => {
+    unSubscribeFromAuth = authentication.onAuthStateChanged((user) => {
       setUserState({ currentUser: user })
       console.log(user)
     })
+    // cleanup
+    return () => {
+      if (unSubscribeFromAuth != null) unSubscribeFromAuth()
+    }
   }, [])
 
   return (
