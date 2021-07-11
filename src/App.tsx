@@ -6,17 +6,19 @@ import HomePage from './views/homepage/HomePage'
 import ShopPage from './views/shop/Shop'
 import SignInSignUp from './views/sign-in-sign-up/SignInSignUp'
 
-import { authentication } from './firebase/firebase.utils'
+import { authentication, createFireStoreProfileDocument } from './firebase/firebase.utils'
 import { useEffect, useState } from 'react'
 import firebase from 'firebase'
+import { User } from './types/firebase/User'
 
 function App() {
-  const [userState, setUserState] = useState({ currentUser: {} as Object | null })
+  const [userState, setUserState] = useState({ currentUser: {} as User | null })
   let unSubscribeFromAuth: { (): void; (): void } | null = null
 
   useEffect(() => {
-    unSubscribeFromAuth = authentication.onAuthStateChanged((user) => {
-      setUserState({ currentUser: user })
+    unSubscribeFromAuth = authentication.onAuthStateChanged(async (user) => {
+      const res = await createFireStoreProfileDocument(user as User)
+      setUserState({ currentUser: user as User })
       console.log(user)
     })
     // cleanup

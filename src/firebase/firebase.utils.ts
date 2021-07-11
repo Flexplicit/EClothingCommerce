@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
+import { User } from '../types/firebase/User'
 
 // this is safe key
 const firebaseConfig = {
@@ -22,6 +23,29 @@ export const fireStore = firebase.firestore()
 const provider = new firebase.auth.GoogleAuthProvider()
 provider.setCustomParameters({ prompt: 'select_account' })
 
+export const createFireStoreProfileDocument = async (userAuthentication: User | null, additionalData?: {}) => {
+  if (!userAuthentication) return
+
+  const userReference = fireStore.doc(`users/${userAuthentication.uid}`)
+  const userSnapshot = await userReference.get()
+  if (!userSnapshot.exists) {
+    const { displayName, email } = userAuthentication
+    const createdAt = new Date()
+
+    try {
+      await userReference.set({
+        displayName,
+        email,
+        createdAt,
+        ...additionalData,
+      })
+    } catch (error) {
+      console.log('error creating firebase user', error.message)
+    }
+  }
+
+  return userReference
+}
 
 export const signInWithGoogle = () => authentication.signInWithPopup(provider)
 export default firebase
