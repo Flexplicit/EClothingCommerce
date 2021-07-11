@@ -12,7 +12,7 @@ const FormInput = (props: { inputState: IFormInputState }) => {
   return (
     <div className="group">
       <input className="form-input" onChange={(ev) => props.inputState.handlechange(ev.target)} {...rest} />
-      {props.inputState.label ? <label className={`${props.inputState.length ? 'shrink' : ''} form-input-label`}>{props.inputState.label}</label> : null}
+      {props.inputState.label ? <label className={`${rest.value?.length ? 'shrink' : ''} form-input-label`}>{props.inputState.label}</label> : null}
     </div>
   )
 }
