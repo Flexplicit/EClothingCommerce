@@ -33,6 +33,7 @@ const SignIn = () => {
             id: 'email',
           }}
         />
+
         <FormInput
           inputState={{
             handlechange: (ev: HTMLInputElement) => setLoginState({ ...loginState, password: ev.value }),
@@ -43,20 +44,23 @@ const SignIn = () => {
           }}
         />
 
-        <CustomButton
-          customButton={{
-            type: 'submit',
-            value: 'Log in',
-            handleClick: ()=> console.log("click test") 
-          }}
-        />
+        <div className="buttons">
+          <CustomButton
+            customButton={{
+              type: 'submit',
+              value: 'Log in',
+              handleClick: () => console.log('click test'),
+            }}
+          />
 
-        <CustomButton
-          customButton={{
-            value: 'Sign in with google',
-            handleClick: signInWithGoogle,
-          }}
-        />
+          <CustomButton
+            customButton={{
+              value: 'Sign in with google',
+              handleClick: signInWithGoogle,
+              isGoogleSignIn: true,
+            }}
+          />
+        </div>
       </form>
     </div>
   )

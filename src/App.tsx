@@ -28,7 +28,7 @@ function App() {
   return (
     <div>
       <main>
-        <Header />
+        <Header headerProps={userState} />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/shop" component={ShopPage} />
