@@ -9,17 +9,22 @@ import SignInSignUp from './views/sign-in-sign-up/SignInSignUp'
 import { authentication, createFireStoreProfileDocument } from './firebase/firebase.utils'
 import { useEffect, useState } from 'react'
 import firebase from 'firebase'
-import { User } from './types/firebase/User'
+import { initialAppState, User } from './types/firebase/User'
 
 function App() {
-  const [userState, setUserState] = useState({ currentUser: {} as User | null })
+  const [userState, setUserState] = useState(initialAppState)
   let unSubscribeFromAuth: { (): void; (): void } | null = null
 
   useEffect(() => {
-    unSubscribeFromAuth = authentication.onAuthStateChanged(async (user) => {
-      const res = await createFireStoreProfileDocument(user as User)
-      setUserState({ currentUser: user as User })
-      console.log(user)
+    unSubscribeFromAuth = authentication.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const resultReference = await createFireStoreProfileDocument(userAuth as unknown as User) // api call to firebase
+        resultReference?.onSnapshot((snapshot) => {
+          setUserState({ currentUser: { uid: snapshot.id, ...snapshot.data() } as User })
+        })
+      } else {
+        setUserState({ currentUser: userAuth }) // userauth should be null
+      }
     })
     // cleanup
     return () => {
