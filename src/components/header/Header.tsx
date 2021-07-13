@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { Reducer, ReducerState } from 'react'
 import { Link } from 'react-router-dom'
 import './Header.styles.scss'
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 import { authentication } from '../../firebase/firebase.utils'
 
+import { connect } from 'react-redux'
+import userReducer from '../../redux/user/user.reducer'
 
-interface IHeaderProps{
-  currentUser: {} | null;
+interface IHeaderProps {
+  currentUser: {} | null
 }
 
-const Header = (props: { headerProps: IHeaderProps }) => {
-  // console.log(props.headerProps.currentUser)
-  console.log(props.headerProps.currentUser)
+const Header = ({ currentUser }: IHeaderProps) => {
+  
+  console.log(currentUser)
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -24,12 +26,12 @@ const Header = (props: { headerProps: IHeaderProps }) => {
         <Link className="option" to="/contact">
           CONTACT
         </Link>
-        {props.headerProps.currentUser === null ? (
+        {currentUser === null ? (
           <Link className="option" to="/signin">
             SIGN IN
           </Link>
         ) : (
-          <div className="option" onClick={()=> authentication.signOut()}>
+          <div className="option" onClick={() => authentication.signOut()}>
             SIGN OUT
           </div>
         )}
@@ -38,4 +40,9 @@ const Header = (props: { headerProps: IHeaderProps }) => {
   )
 }
 
-export default Header
+//TODO: fix type
+const mapStateToProps = (state: any): IHeaderProps => ({
+  currentUser: state.user.currentUser,
+})
+
+export default connect(mapStateToProps)(Header)

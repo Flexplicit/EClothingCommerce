@@ -35,7 +35,7 @@ function App() {
   return (
     <div>
       <main>
-        <Header headerProps={userState} />
+        <Header/>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/shop" component={ShopPage} />
