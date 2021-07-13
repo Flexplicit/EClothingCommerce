@@ -64,6 +64,7 @@
     "@types/bootstrap": "^5.0.17",
     "@types/jquery": "^3.5.5",
     "@types/react-router-dom": "^5.1.7",
+    "@types/redux-logger": "^3.0.9",
     "firebase": "^8.7.1",
     "react-router-dom": "^5.2.0"
   }

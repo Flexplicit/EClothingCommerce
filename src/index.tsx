@@ -6,9 +6,10 @@ import reportWebVitals from './reportWebVitals'
 import './index.css'
 
 import { Provider } from 'react-redux'
+import store from './redux/store'
 
 ReactDOM.render(
-  <Provider store={}>
+  <Provider store={store}>
     <Router basename={process.env.PUBLIC_URL}>
       <React.StrictMode>
         <App />
