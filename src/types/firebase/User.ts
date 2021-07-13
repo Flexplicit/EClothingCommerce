@@ -9,6 +9,6 @@ export interface IUserState {
   currentUser: User | null
 }
 
-export const initialAppState: IUserState = {
-  currentUser: null,
-}
+// export const initialAppState: IUserState = {
+//   currentUser: null,
+// }
