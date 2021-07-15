@@ -6,14 +6,14 @@ import { authentication } from '../../firebase/firebase.utils'
 
 import { connect } from 'react-redux'
 import userReducer from '../../redux/user/user.reducer'
+import { User } from '../../types/firebase/User'
 
 interface IHeaderProps {
-  currentUser: {} | null
+  currentUser: User | null
 }
 
 const Header = ({ currentUser }: IHeaderProps) => {
   
-  console.log(currentUser)
   return (
     <div className="header">
       <Link className="logo-container" to="/">
