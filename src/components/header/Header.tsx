@@ -7,13 +7,14 @@ import { authentication } from '../../firebase/firebase.utils'
 import { connect } from 'react-redux'
 import userReducer from '../../redux/user/user.reducer'
 import { User } from '../../types/firebase/User'
+import CartIcon from '../cart-icon/CartIcon'
+import CartDropdown from '../cart-dropdown/CartDropdown'
 
 interface IHeaderProps {
   currentUser: User | null
 }
 
 const Header = ({ currentUser }: IHeaderProps) => {
-  
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -35,7 +36,9 @@ const Header = ({ currentUser }: IHeaderProps) => {
             SIGN OUT
           </div>
         )}
+        <CartIcon />
       </div>
+      <CartDropdown />
     </div>
   )
 }
