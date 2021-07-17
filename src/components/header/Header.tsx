@@ -9,12 +9,15 @@ import userReducer from '../../redux/user/user.reducer'
 import { User } from '../../types/firebase/User'
 import CartIcon from '../cart-icon/CartIcon'
 import CartDropdown from '../cart-dropdown/CartDropdown'
+import { ICartState } from '../../redux/cart/cart.types'
+import { IRootState } from '../../redux/root-reducer'
 
 interface IHeaderProps {
   currentUser: User | null
+  cart: ICartState
 }
 
-const Header = ({ currentUser }: IHeaderProps) => {
+const Header = ({ currentUser, cart }: IHeaderProps) => {
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -38,14 +41,15 @@ const Header = ({ currentUser }: IHeaderProps) => {
         )}
         <CartIcon />
       </div>
-      <CartDropdown />
+      {cart.hidden ? null : <CartDropdown />}
     </div>
   )
 }
 
 //TODO: fix type
-const mapStateToProps = (state: any): IHeaderProps => ({
+const mapStateToProps = (state: IRootState): IHeaderProps => ({
   currentUser: state.user.currentUser,
+  cart: state.cart,
 })
 
 export default connect(mapStateToProps)(Header)
