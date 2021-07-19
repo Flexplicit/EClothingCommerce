@@ -1,23 +1,25 @@
-import React, { Reducer, ReducerState } from 'react'
 import { Link } from 'react-router-dom'
 import './Header.styles.scss'
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 import { authentication } from '../../firebase/firebase.utils'
 
 import { connect } from 'react-redux'
-import userReducer from '../../redux/user/user.reducer'
 import { User } from '../../types/firebase/User'
 import CartIcon from '../cart-icon/CartIcon'
 import CartDropdown from '../cart-dropdown/CartDropdown'
-import { ICartState } from '../../redux/cart/cart.types'
 import { IRootState } from '../../redux/root-reducer'
+
+import { selectCurrentUser } from '../../redux/user/user.selector'
+import { selectCartHidden } from '../../redux/cart/cart.selectors'
+
+import { createStructuredSelector } from 'reselect'
 
 interface IHeaderProps {
   currentUser: User | null
-  cart: ICartState
+  cartHidden: boolean
 }
 
-const Header = ({ currentUser, cart }: IHeaderProps) => {
+const Header = ({ currentUser, cartHidden }: IHeaderProps) => {
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -41,15 +43,14 @@ const Header = ({ currentUser, cart }: IHeaderProps) => {
         )}
         <CartIcon />
       </div>
-      {cart.hidden ? null : <CartDropdown />}
+      {cartHidden ? null : <CartDropdown />}
     </div>
   )
 }
 
-//TODO: fix type
-const mapStateToProps = (state: IRootState): IHeaderProps => ({
-  currentUser: state.user.currentUser,
-  cart: state.cart,
+const mapStateToProps = createStructuredSelector<IRootState, IHeaderProps>({
+  currentUser: selectCurrentUser,
+  cartHidden: selectCartHidden,
 })
 
 export default connect(mapStateToProps)(Header)

@@ -17,6 +17,10 @@ import { AnyAction, Dispatch } from 'redux'
 import { setCurrentUser } from './redux/user/user.actions'
 import userReducer from './redux/user/user.reducer'
 import SignIn from './components/account/SignIn'
+import { IRootState } from './redux/root-reducer'
+import { selectCurrentUser } from './redux/user/user.selector'
+import { createStructuredSelector } from 'reselect'
+import Checkout from './components/checkout/Checkout'
 
 interface IAppDispatchProps {
   setCurrentUser: (user: User | null) => {}
@@ -54,6 +58,7 @@ function App({ setCurrentUser }: IAppDispatchProps, { currentUser }: IAppStatePr
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
           <Route exact path="/signin" component={SignInSignUp} render={() => (currentUser ? <Redirect to="/" /> : <SignInSignUp />)} />
+          <Route exact path="/checkout" component={Checkout} />
         </Switch>
       </main>
     </div>
@@ -65,8 +70,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   setCurrentUser: (user: User | null) => dispatch(setCurrentUser(user!)),
 })
 
-const mapStateToProps = (state: any): IAppStateProps => ({
-  currentUser: state.user.currentUser,
+const mapStateToProps = createStructuredSelector<IRootState, IAppStateProps>({
+  currentUser: selectCurrentUser,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
