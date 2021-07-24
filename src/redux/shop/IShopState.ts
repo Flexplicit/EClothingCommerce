@@ -1,5 +1,6 @@
-import { IShopSection } from '../types/IShopSection'
+import { IShopSection, IShopSectionNormalized } from '../types/IShopSection'
 
 export interface IShopState {
-  shopSections: IShopSection[]
+  shopSections: IShopSectionNormalized
 }
+
