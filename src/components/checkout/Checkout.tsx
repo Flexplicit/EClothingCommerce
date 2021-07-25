@@ -5,6 +5,7 @@ import { selectCartItems, selectCartTotalPrice } from '../../redux/cart/cart.sel
 import { IRootState } from '../../redux/root-reducer'
 import { ICartProduct } from '../../types/ICartProduct'
 import CheckoutItem from '../checkout-item/CheckoutItem'
+import StripeButton from '../stripe-button/StripeButton'
 import './Checkout.style.scss'
 
 interface ICheckoutProps {
@@ -38,6 +39,11 @@ const Checkout = ({ cartItems, totalValue }: ICheckoutProps) => {
       <div className="total">
         <span>TOTAL : {totalValue}€</span>
       </div>
+      <div className="test-warning">*Please use following test credit card for payments* 
+      <br/>
+       5555 5555 5555 4444 - Expiry: 12/25 - CVV: 111
+       </div>
+      <StripeButton price={totalValue} />
     </div>
   )
 }
