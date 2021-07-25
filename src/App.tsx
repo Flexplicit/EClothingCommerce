@@ -7,20 +7,18 @@ import ShopPage from './views/shop/Shop'
 import SignInSignUp from './views/sign-in-sign-up/SignInSignUp'
 
 import { authentication, createFireStoreProfileDocument } from './firebase/firebase.utils'
-import { useEffect, useState } from 'react'
-import firebase from 'firebase'
+import { useEffect } from 'react'
 
 import { connect } from 'react-redux'
-// import { setCurrentUser } from './redux/user/user.actions'
-import { IUserState, User } from './types/firebase/User'
+import { User } from './types/firebase/User'
 import { AnyAction, Dispatch } from 'redux'
 import { setCurrentUser } from './redux/user/user.actions'
-import userReducer from './redux/user/user.reducer'
-import SignIn from './components/account/SignIn'
 import { IRootState } from './redux/root-reducer'
 import { selectCurrentUser } from './redux/user/user.selector'
 import { createStructuredSelector } from 'reselect'
 import Checkout from './components/checkout/Checkout'
+
+import styled from 'styled-components'
 
 interface IAppDispatchProps {
   setCurrentUser: (user: User | null) => {}
