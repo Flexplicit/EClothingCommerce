@@ -11,7 +11,7 @@ interface MatchParams {
 }
 
 interface ICollectionPageProps {
-  shopCollection?: IShopSection
+  shopCollection: IShopSection | null
 }
 
 const CollectionPage = ({ shopCollection }: ICollectionPageProps) => {
@@ -28,8 +28,11 @@ const CollectionPage = ({ shopCollection }: ICollectionPageProps) => {
 }
 
 // Todo: fix ownProps Types to have history, location, match
-const mapStateToProps = (state: IRootState, ownProps: any): ICollectionPageProps => ({
-  shopCollection: selectCollection(ownProps.match.params.collectionId)(state),
-})
-
+const mapStateToProps = (state: IRootState, ownProps: any): ICollectionPageProps => {
+  debugger;
+  console.log(state, "STATE IN COLLECTIONPAGE")
+  return {
+    shopCollection: selectCollection(ownProps.match.params.collectionId)(state),
+  }
+}
 export default connect(mapStateToProps)(CollectionPage)

@@ -6,7 +6,7 @@ import HomePage from './views/homepage/HomePage'
 import ShopPage from './views/shop/Shop'
 import SignInSignUp from './views/sign-in-sign-up/SignInSignUp'
 
-import { authentication, createFireStoreProfileDocument } from './firebase/firebase.utils'
+import { authentication, createFireStoreProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils'
 import { useEffect } from 'react'
 
 import { connect } from 'react-redux'
@@ -17,21 +17,27 @@ import { IRootState } from './redux/root-reducer'
 import { selectCurrentUser } from './redux/user/user.selector'
 import { createStructuredSelector } from 'reselect'
 import Checkout from './components/checkout/Checkout'
-
+import { selectCollectionsForPreview } from './redux/shop/shop.selectors'
 import styled from 'styled-components'
+import { IShopSection } from './redux/types/IShopSection'
 
-interface IAppDispatchProps {
-  setCurrentUser: (user: User | null) => {}
+interface IAppProps extends IAppStateProps {
+  setCurrentUser: (user: User | null) => {} // dispatch action
 }
 
 interface IAppStateProps {
   currentUser: User | null
+  // collections: IShopSection[]
 }
 
-function App({ setCurrentUser }: IAppDispatchProps, { currentUser }: IAppStateProps) {
+function App({ currentUser, setCurrentUser }: IAppProps) {
   let unSubscribeFromAuth: { (): void } | null = null
-  // console.log(currentUser, 'currentUser from props connect 4')
   useEffect(() => {
+    // addCollectionAndDocuments(
+    //   'collections',
+    //   collections.map(({ title, items }) => ({ title, items })),
+    // )
+
     unSubscribeFromAuth = authentication.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const resultReference = await createFireStoreProfileDocument(userAuth as unknown as User) // api call to firebase
@@ -70,6 +76,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
 
 const mapStateToProps = createStructuredSelector<IRootState, IAppStateProps>({
   currentUser: selectCurrentUser,
+  // collections: selectCollectionsForPreview,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

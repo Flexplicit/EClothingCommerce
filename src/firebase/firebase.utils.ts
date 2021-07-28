@@ -2,6 +2,9 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import { User } from '../types/firebase/User'
+import { data } from 'jquery'
+import Item from '../types/Item'
+import { IShopSection, IShopSectionNormalized } from '../redux/types/IShopSection'
 
 // this is safe key
 const firebaseConfig = {
@@ -45,6 +48,41 @@ export const createFireStoreProfileDocument = async (userAuthentication: User | 
   }
 
   return userReference
+}
+/**
+ * Add collection of objects into firebase database.
+ * @param  {string} collectionKey The name of the collection
+ * @param  {TEntity[]} objectToAdd Array of objects to add
+ * @return {Promise<void>} Promise to do so
+ */
+
+export async function addCollectionAndDocuments<TEntity>(collectionKey: string, objectToAdd: TEntity[]): Promise<void> {
+  const collectionRef = fireStore.collection(collectionKey)
+  console.log(objectToAdd)
+  const batch = fireStore.batch()
+  objectToAdd.forEach((entity) => {
+    const newDocumentReference = collectionRef.doc() // random id will be generated for each entity
+    batch.set(newDocumentReference, entity)
+  })
+  console.log(batch)
+  return await batch.commit()
+}
+
+export const convertCollectionSnapshotToMap = (collections: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>): IShopSectionNormalized => {
+  const mappedSections = collections.docs.map((document) => {
+    const { title, items } = document.data()
+    return {
+      routeName: encodeURI((title as string).toLowerCase()),
+      id: document.id,
+      title: title as string,
+      items: items as Item[],
+    }
+  }) as IShopSection[]
+  // convert to normalized shape
+  return mappedSections.reduce((accumulator: IShopSectionNormalized, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection
+    return accumulator
+  }, {})
 }
 
 export const signInWithGoogle = () => authentication.signInWithPopup(provider)

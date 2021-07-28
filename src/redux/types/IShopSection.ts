@@ -5,8 +5,9 @@ export interface IShopSectionNormalized {
 }
 
 export interface IShopSection {
-  id: number
+  id: string | number;
   title: string
   routeName: string
   items: Item[]
 }
+
