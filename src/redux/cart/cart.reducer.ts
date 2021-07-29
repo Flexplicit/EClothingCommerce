@@ -1,5 +1,3 @@
-import { act } from 'react-dom/test-utils'
-import { ICartProduct } from '../../types/ICartProduct'
 import Item from '../../types/Item'
 import { IReduxAction } from '../IReduxAction'
 import { cartActionTypes, ICartState } from './cart.types'
@@ -25,7 +23,7 @@ const cartReducer = (state = INITIAL_STATE, action: IReduxAction<ICartState> | I
     case cartActionTypes.REMOVE_ITEM_FROM_CART:
       return {
         ...state,
-        cartItems: state.cartItems.filter((x) => x.item.id != (action.payload as Item).id),
+        cartItems: state.cartItems.filter((x) => x.item.id !== (action.payload as Item).id),
       }
     case cartActionTypes.DECREASE_ITEM_QUANTITY:
       return {

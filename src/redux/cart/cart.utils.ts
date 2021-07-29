@@ -1,4 +1,3 @@
-import CartItem from '../../components/cart-item/CartItem'
 import { ICartProduct } from '../../types/ICartProduct'
 import Item from '../../types/Item'
 
@@ -14,7 +13,7 @@ export const decreaseCartItemQuantity = (cartItems: ICartProduct[], cartItemToDe
   const existingCartItem = cartItems.find((cartItem) => cartItem.item.id === cartItemToDecrease.id)
 
   if (existingCartItem!.quantity <= 1) {
-    return cartItems.filter((x) => x.item.id != cartItemToDecrease.id)
+    return cartItems.filter((x) => x.item.id !== cartItemToDecrease.id)
   }
   existingCartItem!.quantity--
   return [...cartItems]

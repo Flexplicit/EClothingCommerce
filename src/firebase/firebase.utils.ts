@@ -2,7 +2,6 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import { User } from '../types/firebase/User'
-import { data } from 'jquery'
 import Item from '../types/Item'
 import { IShopSection, IShopSectionNormalized } from '../redux/types/IShopSection'
 

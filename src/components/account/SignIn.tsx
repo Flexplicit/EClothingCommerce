@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import CustomButton from '../custom-button/CustomButton'
 import FormInput from '../form-input/FormInput'
 import './SignIn.styles.scss'

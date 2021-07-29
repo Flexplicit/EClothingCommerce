@@ -1,4 +1,3 @@
-import React, { ChangeEvent } from 'react'
 import './FormInput.styles.scss'
 
 interface IFormInputState {
@@ -8,7 +7,7 @@ interface IFormInputState {
 }
 
 const FormInput = (props: { inputState: IFormInputState }) => {
-  const { handlechange, label, ...rest } = props.inputState // id="xxx" etc...
+  const { handlechange, label, ...rest } = props.inputState 
   return (
     <div className="group">
       <input className="form-input" onChange={(ev) => props.inputState.handlechange(ev.target)} {...rest} />

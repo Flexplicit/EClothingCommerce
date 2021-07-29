@@ -3,7 +3,6 @@ import CollectionItem from '../../components/collection-item/CollectionItem'
 import { IRootState } from '../../redux/root-reducer'
 import { selectCollection } from '../../redux/shop/shop.selectors'
 import { IShopSection } from '../../redux/types/IShopSection'
-import Item from '../../types/Item'
 import './CollectionPage.styles.scss'
 
 interface MatchParams {

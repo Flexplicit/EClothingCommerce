@@ -14,7 +14,7 @@ const CollectionsOverview = ({ collectionData }: ICollectionsOverviewProps) => {
   debugger;
   return (
     <div className="collections-overview">
-      {collectionData.map((collection) => (
+      {collectionData?.map((collection) => (
         <PreviewCollection previewCollection={{ items: collection.items, title: collection.title }} key={collection.id} />
       ))}
     </div>

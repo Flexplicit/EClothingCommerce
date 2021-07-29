@@ -1,10 +1,8 @@
-import React, { Dispatch } from 'react'
+import { Dispatch } from 'react'
 import { connect } from 'react-redux'
-import { AnyAction } from 'redux'
 
 import { addItemToCart } from '../../redux/cart/cart.actions'
 import { IReduxAction } from '../../redux/IReduxAction'
-import { IRootState } from '../../redux/root-reducer'
 import Item from '../../types/Item'
 import CustomButton from '../custom-button/CustomButton'
 import './CollectionItem.style.scss'
@@ -15,7 +13,7 @@ interface ICollectionItemProps {
 }
 
 const CollectionItem = ({ item, addItem }: ICollectionItemProps) => {
-  const { id, name, price, imageUrl } = item
+  const { name, price, imageUrl } = item
 
   return (
     <div className="collection-item">

@@ -1,4 +1,3 @@
-import { ICartProduct } from '../../types/ICartProduct'
 import Item from '../../types/Item'
 import { IReduxAction } from '../IReduxAction'
 import { cartActionTypes, ICartState } from './cart.types'

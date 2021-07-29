@@ -1,5 +1,3 @@
-import { StaticRouter } from 'react-router-dom'
-import Section from '../../types/Section'
 import { IReduxAction } from '../IReduxAction'
 import { IDirectoryState } from './IDirectoryState'
 
@@ -45,7 +43,6 @@ const directoryReducer = (state = INITIAL_STATE, action: IReduxAction<any>) => {
     default:
       return state
   }
-  return state
 }
 
 export default directoryReducer

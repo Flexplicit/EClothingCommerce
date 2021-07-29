@@ -1,5 +1,3 @@
-import React from 'react'
-import { ICartProduct } from '../../types/ICartProduct'
 import Item from '../../types/Item'
 import './CartItem.styles.scss'
 

@@ -10,9 +10,8 @@ if (process.env.NODE_ENV === 'development') {
   middlewares.push(logger)
 }
 
-export const store: Store<EmptyObject, AnyAction> = createStore(rootReducer, applyMiddleware(...middlewares))
+export const store: Store= createStore(rootReducer, applyMiddleware(...middlewares))
 
 export const persistor: Persistor = persistStore(store)
 
-export default { store, persistor }
-
+// export default { store, persistor }

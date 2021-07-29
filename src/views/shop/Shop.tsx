@@ -9,9 +9,7 @@ import { IReduxAction } from '../../redux/IReduxAction'
 import WithSpinner from '../../components/with-spinner/WithSpinner'
 import CollectionsOverview from '../../components/collections-overview/CollectionsOverview'
 import CollectionPage from '../category/CollectionPage'
-
-const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview)
-const CollectionPageWithSpinner = WithSpinner(CollectionPage)
+import Spinner from '../../components/with-spinner/WithSpinner'
 
 interface IShopProps {
   updateShopData: (input: IShopSectionNormalized) => void
@@ -25,27 +23,29 @@ const Shop = ({ updateShopData }: IShopProps) => {
   const [shopComponentState, setShopComponentState] = useState({ isLoading: true, unSubscribeFromSnapShot: null } as IShopComponentState)
   const match = useRouteMatch() // collectionId if exists
 
-  const loadData = () => {
+  const loadData = async () => {
+    debugger
     const collectionReference = fireStore.collection('collections')
-    const unSubscribeFromSnapshot = collectionReference.onSnapshot((snapshot) => {
+    const unSubscribeFromSnapshot = collectionReference.onSnapshot(async (snapshot) => {
       const res = convertCollectionSnapshotToMap(snapshot)
 
       updateShopData(res)
-      // setShopComponentState({ ...shopComponentState, unSubscribeFromSnapShot: unSubscribeFromSnapshot })
+      setShopComponentState({ unSubscribeFromSnapShot: unSubscribeFromSnapshot, isLoading: false })
     })
   }
 
-  useEffect(() => {
-    loadData()
+  // const testAsync = async () => await loadData().then(() => setShopComponentState({ unSubscribeFromSnapShot: null, isLoading: false }))
 
-    setShopComponentState({ unSubscribeFromSnapShot: shopComponentState.unSubscribeFromSnapShot, isLoading: false })
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    debugger
+    loadData()
   }, [match]) // dep might not be necessary
 
   return (
     <div className="shop-page">
-      {/* <Route exact path={`${match.path}`} render={(props) => <CollectionsOverviewWithSpinner isLoading={shopComponentState.isLoading} {...props} />} /> */}
-      {/* <Route path={`${match.path}/:collectionId`} render={(props) => <CollectionPageWithSpinner isLoading={shopComponentState.isLoading} {...props} />} /> */}
-      {shopComponentState.isLoading ? 'LOADING' : <CollectionsOverview />}
+      <Route exact path={`${match.path}`} render={(props) => (shopComponentState.isLoading ? <Spinner /> : <CollectionsOverview {...props} />)} />
+      <Route exact path={`${match.path}/:collectionId`} render={(props) => (shopComponentState.isLoading ? <Spinner /> : <CollectionPage {...props} />)} />
     </div>
   )
 }

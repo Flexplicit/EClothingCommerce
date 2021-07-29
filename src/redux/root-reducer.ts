@@ -9,7 +9,7 @@ import storage from 'redux-persist/lib/storage'
 import { IDirectoryState } from './directory/IDirectoryState'
 import directoryReducer from './directory/directory.reducer'
 import { IShopState } from './shop/IShopState'
-import { shopReducer } from './shop/shop.reducer'
+import  shopReducer  from './shop/shop.reducer'
 
 const persistConfig = {
   key: 'root',

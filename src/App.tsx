@@ -6,7 +6,7 @@ import HomePage from './views/homepage/HomePage'
 import ShopPage from './views/shop/Shop'
 import SignInSignUp from './views/sign-in-sign-up/SignInSignUp'
 
-import { authentication, createFireStoreProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils'
+import { authentication, createFireStoreProfileDocument } from './firebase/firebase.utils'
 import { useEffect } from 'react'
 
 import { connect } from 'react-redux'
@@ -17,9 +17,6 @@ import { IRootState } from './redux/root-reducer'
 import { selectCurrentUser } from './redux/user/user.selector'
 import { createStructuredSelector } from 'reselect'
 import Checkout from './components/checkout/Checkout'
-import { selectCollectionsForPreview } from './redux/shop/shop.selectors'
-import styled from 'styled-components'
-import { IShopSection } from './redux/types/IShopSection'
 
 interface IAppProps extends IAppStateProps {
   setCurrentUser: (user: User | null) => {} // dispatch action

@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import Section from '../../types/Section'
 import MenuItem from '../menuitem/MenuItem'
-import { initialValue } from './DirectoryInitialValue'
 import './Directory.styles.scss'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
