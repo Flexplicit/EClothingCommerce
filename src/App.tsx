@@ -35,16 +35,19 @@ function App({ currentUser, setCurrentUser }: IAppProps) {
     //   collections.map(({ title, items }) => ({ title, items })),
     // )
 
-    unSubscribeFromAuth = authentication.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const resultReference = await createFireStoreProfileDocument(userAuth as unknown as User) // api call to firebase
-        resultReference?.onSnapshot((snapshot) => {
-          setCurrentUser({ uid: snapshot.id, ...snapshot.data() } as User)
-        })
-      } else {
-        setCurrentUser(userAuth) // userauth should be null
-      }
-    })
+    unSubscribeFromAuth = authentication.onAuthStateChanged(
+      async (userAuth) => {
+        if (userAuth) {
+          const resultReference = await createFireStoreProfileDocument(userAuth as unknown as User) // api call to firebase
+          resultReference?.onSnapshot((snapshot) => {
+            setCurrentUser({ uid: snapshot.id, ...snapshot.data() } as User)
+          })
+        } else {
+          setCurrentUser(userAuth) // userauth should be null
+        }
+      },
+      (error) => console.log(error),
+    )
     // cleanup
     return () => {
       if (unSubscribeFromAuth != null) unSubscribeFromAuth()
